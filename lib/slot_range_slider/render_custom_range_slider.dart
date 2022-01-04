@@ -163,7 +163,7 @@ class RenderCustomRangeSlider extends RenderBox {
   set handlerRadius(double value) {
     if (_handlerRadius == value) return;
     _handlerRadius = value;
-    markNeedsPaint();
+    markNeedsLayout();
   }
 
   ///list of Slots**/
@@ -637,10 +637,7 @@ class RenderCustomRangeSlider extends RenderBox {
             markNeedsSemanticsUpdate();
             listOfSlots.resetSelection(left: _windowLeft, right: _windowRight);
           }
-          /*if ((slot.left + slotWidth) <=
-              _selectionHandler.nearestBookedSlotRight) {
-            _windowRight = _windowLeft + _windowWidth;
-          }*/
+
         }
 
         break;
