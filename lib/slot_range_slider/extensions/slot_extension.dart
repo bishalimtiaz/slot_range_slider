@@ -36,7 +36,6 @@ extension SlotExtension on List<Slot> {
   }) {
     handler.nearestBookedSlotLeft = _getNearestBookedSlotLeft(index, slotWidth);
     handler.nearestBookedSlotRight = _getNearestBookedSlotRight(index, slotWidth);
-    //return handler;
   }
 
   double _getNearestBookedSlotLeft(int index, double slotWidth) {
@@ -47,7 +46,6 @@ extension SlotExtension on List<Slot> {
         break;
       }
     }
-    print("leftRange: $leftRange");
     return leftRange;
   }
 
@@ -55,13 +53,11 @@ extension SlotExtension on List<Slot> {
     double rightRange = last.left + slotWidth;
 
     for (int i = ++index; i < length; i++) {
-      //print("index: $i isBooked: ${this[i].isBooked} left: ${this[i].left}");
       if (this[i].isBooked){
         rightRange = this[i].left;
         break;
       }
     }
-    print("rightRange: $rightRange");
     return rightRange;
   }
 }

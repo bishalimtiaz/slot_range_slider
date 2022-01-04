@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:slot_range_slider/slot_range_slider/extensions/time_of_day_extension.dart';
 import 'package:slot_range_slider/slot_range_slider/values/widget_values.dart';
-
 import '../model/booked_slot.dart';
 import '../model/slot.dart';
 
