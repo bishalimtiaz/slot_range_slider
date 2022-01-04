@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:slot_range_slider/slot_range_slider/model/booked_slot.dart';
+import 'package:slot_range_slider/slot_range_slider/model/slot.dart';
 import 'package:slot_range_slider/slot_range_slider/slot_range_slider.dart';
+import 'package:slot_range_slider/slot_range_slider/values/enums.dart';
 
 void main() {
   //debugRepaintRainbowEnabled = true;
@@ -32,55 +34,54 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
-
-
   @override
   Widget build(BuildContext context) {
-    return  Center(
-      //child: SlotRangeSlider(),
-      child: SlotRangeSlider(startTime: const TimeOfDay(hour: 10, minute: 0),
+    return Center(
+      child: SlotRangeSlider(
+        startTime: const TimeOfDay(hour: 10, minute: 0),
         endTime: const TimeOfDay(hour: 20, minute: 30),
         listOfBookedLots: _getDummyList(),
+        onSlotSelected: onSlotSelected,
+        sliderType: SliderType.RANGE, //default SliderType.OVERVIEW and is not selectable
+        //windowColor: Colors.red,
       ),
     );
   }
+}
 
+void onSlotSelected(List<Slot> slots){
+  slots.forEach((element) {
+    print("start: ${element.startTime} end: ${element.endTime}");
+  });
 
 }
 
-List<BookedSlot> _getDummyList(){
-  final List<BookedSlot >dummyList = [];
-  //dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 10,minute: 00)));
-  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 10,minute: 30)));
-  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 11,minute: 00)));
-  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 11,minute: 30)));
-  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 12,minute: 00)));
+List<BookedSlot> _getDummyList() {
+  final List<BookedSlot> dummyList = [];
+ /* dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 10,minute: 00)));
+  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 10, minute: 30)));*/
+  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 11, minute: 00)));
+  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 11, minute: 30)));
+  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 12, minute: 00)));
   /*dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 12,minute: 30)));
   dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 13,minute: 00)));
   dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 13,minute: 30)));
   dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 14,minute: 00)));
   dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 14,minute: 30)));
   dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 15,minute: 00)));*/
-  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 15,minute: 30)));
-  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 16,minute: 00)));
-  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 16,minute: 30)));
-  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 17,minute: 00)));
+  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 15, minute: 30)));
+  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 16, minute: 00)));
+  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 16, minute: 30)));
+  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 17, minute: 00)));
   // dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 17,minute: 30)));
   // dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 18,minute: 00)));
   // dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 18,minute: 30)));
   dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 19,minute: 00)));
   //dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 19,minute: 30)));
-  dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 20,minute: 00)));
-
-
-
+  //dummyList.add(BookedSlot(startTime: const TimeOfDay(hour: 20,minute: 00)));
 
   return dummyList;
 }
-
-
-

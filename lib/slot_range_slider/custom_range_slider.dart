@@ -20,11 +20,17 @@ class CustomRangeSlide extends LeafRenderObjectWidget {
   final TextStyle? bookedHeaderTextStyle;
   final double? dividerThickness;
   final Color? windowColor;
+  final Color? leftHandlerIconColor;
+  final Color? rightHandlerIconColor;
+  final Color? leftHandlerBackgroundColor;
+  final Color? rightHandlerBackgroundColor;
+  final double? handlerRadius;
   final Function(List<Slot>) onSlotSelected;
   final SliderType sliderType;
   const CustomRangeSlide({
     required this.listOfSlots,
     required this.onSlotSelected,
+    required this.sliderType,
     this.slotHeight,
     this.slotWidth,
     this.headerPadding,
@@ -35,7 +41,11 @@ class CustomRangeSlide extends LeafRenderObjectWidget {
     this.bookedHeaderTextStyle,
     this.dividerThickness,
     this.windowColor,
-    required this.sliderType ,
+    this.leftHandlerIconColor,
+    this.rightHandlerIconColor,
+    this.leftHandlerBackgroundColor,
+    this.rightHandlerBackgroundColor,
+    this.handlerRadius,
     Key? key,
   }) : super(key: key);
 
@@ -55,23 +65,32 @@ class CustomRangeSlide extends LeafRenderObjectWidget {
       windowColor: windowColor,
       buildContext: context,
       onSlotSelected: onSlotSelected,
-      isSelectable: sliderType == SliderType.RANGE
+      isSelectable: sliderType == SliderType.RANGE,
+      leftHandlerIconColor: leftHandlerIconColor,
+      rightHandlerIconColor: rightHandlerIconColor,
+      leftHandlerBackgroundColor: leftHandlerBackgroundColor,
+      rightHandlerBackgroundColor: rightHandlerBackgroundColor,
+      handlerRadius: handlerRadius,
     );
   }
 
   @override
-  void updateRenderObject(BuildContext context, covariant RenderCustomRangeSlider renderObject) {
-
+  void updateRenderObject(
+      BuildContext context, covariant RenderCustomRangeSlider renderObject) {
     renderObject
       ..slotHeight = slotHeight ?? WidgetValues.defaultSlotHeight
       ..slotWidth = slotWidth ?? WidgetValues.defaultSlotWidth
       ..headerPadding = headerPadding ?? WidgetValues.defaultHeaderPadding
-      ..availableSlotColor = availableSlotColor ?? WidgetColors.defaultAvailableSlotColor
+      ..availableSlotColor =
+          availableSlotColor ?? WidgetColors.defaultAvailableSlotColor
       ..bookedSlotColor = bookedSlotColor ?? WidgetColors.defaultBookedSlotColor
       ..dividerColor = dividerColor ?? WidgetColors.defaultDividerColor
-      ..availableHeaderTextStyle = availableHeaderTextStyle ?? defaultAvailableSlotHeaderStyle
-      ..bookedHeaderTextStyle = bookedHeaderTextStyle ?? defaultBookedSlotHeaderStyle
-      ..dividerThickness = dividerThickness ?? WidgetValues.defaultDividerThickness
+      ..availableHeaderTextStyle =
+          availableHeaderTextStyle ?? defaultAvailableSlotHeaderStyle
+      ..bookedHeaderTextStyle =
+          bookedHeaderTextStyle ?? defaultBookedSlotHeaderStyle
+      ..dividerThickness =
+          dividerThickness ?? WidgetValues.defaultDividerThickness
       ..windowColor = windowColor ?? WidgetColors.defaultWindowColor;
   }
 
@@ -84,8 +103,10 @@ class CustomRangeSlide extends LeafRenderObjectWidget {
     properties.add(ColorProperty("availableSlotColor", availableSlotColor));
     properties.add(ColorProperty("bookedSlotColor", bookedSlotColor));
     properties.add(ColorProperty("dividerColor", dividerColor));
-    properties.add(DiagnosticsProperty("availableHeaderTextStyle", availableHeaderTextStyle));
-    properties.add(DiagnosticsProperty("bookedHeaderTextStyle", bookedHeaderTextStyle));
+    properties.add(DiagnosticsProperty(
+        "availableHeaderTextStyle", availableHeaderTextStyle));
+    properties.add(
+        DiagnosticsProperty("bookedHeaderTextStyle", bookedHeaderTextStyle));
     properties.add(DoubleProperty("dividerThickness", dividerThickness));
     properties.add(ColorProperty("windowColor", windowColor));
   }

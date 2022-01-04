@@ -449,9 +449,10 @@ class RenderCustomRangeSlider extends RenderBox {
       onSlotSelected(listOfSlots.getAllSelectedSlots());
     }
 
-    ///Draw Window**/
 
+    ///If isSelectable draw window to first avvaliable slot
     if(isSelectable){
+      ///Draw Window**/
       canvas.drawRect(
         Rect.fromLTRB(
           _windowLeft,
@@ -462,72 +463,74 @@ class RenderCustomRangeSlider extends RenderBox {
         windowPaint,
       );
 
-      ///Draw Left Handler
+      if(_windowTop > 0 && _windowLeft > 0){
+        ///Draw Left Handler
 
-      canvas.drawCircle(
-        Offset(
-          _windowLeft,
-          _windowTop + (slotHeight / 2),
-        ),
-        handlerRadius,
-        leftHandlerBackgroundPaint,
-      );
+        canvas.drawCircle(
+          Offset(
+            _windowLeft,
+            _windowTop + (slotHeight / 2),
+          ),
+          handlerRadius,
+          leftHandlerBackgroundPaint,
+        );
 
-      final leftHandlerTextSpan = TextSpan(
-        text: String.fromCharCode(
-          _leftHandlerIcon.codePoint,
-        ),
-        style: TextStyle(
-          fontSize: handlerRadius,
-          fontFamily: _leftHandlerIcon.fontFamily,
-          color: leftHandlerIconColor,
-        ),
-      );
+        final leftHandlerTextSpan = TextSpan(
+          text: String.fromCharCode(
+            _leftHandlerIcon.codePoint,
+          ),
+          style: TextStyle(
+            fontSize: handlerRadius,
+            fontFamily: _leftHandlerIcon.fontFamily,
+            color: leftHandlerIconColor,
+          ),
+        );
 
-      final leftHandlerTextPainter = TextPainter(
-          textDirection: TextDirection.ltr, text: leftHandlerTextSpan);
+        final leftHandlerTextPainter = TextPainter(
+            textDirection: TextDirection.ltr, text: leftHandlerTextSpan);
 
-      leftHandlerTextPainter.layout();
-      leftHandlerTextPainter.paint(
-        canvas,
-        Offset(
-          _windowLeft - (leftHandlerTextPainter.width / 2),
-          _windowTop + (slotHeight / 2) - (leftHandlerTextPainter.height / 2),
-        ),
-      );
+        leftHandlerTextPainter.layout();
+        leftHandlerTextPainter.paint(
+          canvas,
+          Offset(
+            _windowLeft - (leftHandlerTextPainter.width / 2),
+            _windowTop + (slotHeight / 2) - (leftHandlerTextPainter.height / 2),
+          ),
+        );
 
-      ///Draw Right Handler
+        ///Draw Right Handler
 
-      canvas.drawCircle(
-        Offset(
-          _windowRight,
-          _windowTop + (slotHeight / 2),
-        ),
-        handlerRadius,
-        rightHandlerBackgroundPaint,
-      );
+        canvas.drawCircle(
+          Offset(
+            _windowRight,
+            _windowTop + (slotHeight / 2),
+          ),
+          handlerRadius,
+          rightHandlerBackgroundPaint,
+        );
 
-      final rightHandlerTextSpan = TextSpan(
-        text: String.fromCharCode(
-          _rightHandlerIcon.codePoint,
-        ),
-        style: TextStyle(
-          fontSize: handlerRadius,
-          fontFamily: _rightHandlerIcon.fontFamily,
-          color: rightHandlerIconColor,
-        ),
-      );
+        final rightHandlerTextSpan = TextSpan(
+          text: String.fromCharCode(
+            _rightHandlerIcon.codePoint,
+          ),
+          style: TextStyle(
+            fontSize: handlerRadius,
+            fontFamily: _rightHandlerIcon.fontFamily,
+            color: rightHandlerIconColor,
+          ),
+        );
 
-      final rightHandlerTextPainter = TextPainter(
-          textDirection: TextDirection.ltr, text: rightHandlerTextSpan);
-      rightHandlerTextPainter.layout();
-      rightHandlerTextPainter.paint(
-        canvas,
-        Offset(
-          _windowRight - (leftHandlerTextPainter.width / 2),
-          _windowTop + (slotHeight / 2) - (leftHandlerTextPainter.height / 2),
-        ),
-      );
+        final rightHandlerTextPainter = TextPainter(
+            textDirection: TextDirection.ltr, text: rightHandlerTextSpan);
+        rightHandlerTextPainter.layout();
+        rightHandlerTextPainter.paint(
+          canvas,
+          Offset(
+            _windowRight - (leftHandlerTextPainter.width / 2),
+            _windowTop + (slotHeight / 2) - (leftHandlerTextPainter.height / 2),
+          ),
+        );
+      }
     }
 
     canvas.restore();
