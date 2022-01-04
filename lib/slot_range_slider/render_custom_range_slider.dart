@@ -548,7 +548,7 @@ class RenderCustomRangeSlider extends RenderBox {
       case DragEvent.RIGHT:
         if (dx < _selectionHandler.nearestBookedSlotRight &&
             (dx > (_windowLeft + slotWidth) || dx == listOfSlots.last.left)) {
-          _windowRight = (dx != listOfSlots.last.left)
+          _windowRight = (dx <= listOfSlots.last.left)
               ? dx
               : math.min(
                   ++_windowRight, _selectionHandler.nearestBookedSlotRight);
