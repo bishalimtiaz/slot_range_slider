@@ -252,10 +252,10 @@ class RenderCustomRangeSlider extends RenderBox {
 
   @override
   double computeMinIntrinsicWidth(double height) =>
-      slotWidth + _leftPadding + _rightPadding + handlerRadius;
+      slotWidth + _leftPadding + _rightPadding + handlerRadius*2;
   @override
   double computeMaxIntrinsicWidth(double height) =>
-      slotWidth + _leftPadding + _rightPadding + handlerRadius;
+      slotWidth + _leftPadding + _rightPadding + handlerRadius*2;
   @override
   double computeMinIntrinsicHeight(double width) =>
       slotHeight + headerPadding + _topPadding + _bottomPadding;
@@ -346,7 +346,7 @@ class RenderCustomRangeSlider extends RenderBox {
           bookedHeaderTextPainter.paint(
             canvas,
             Offset(
-              0 + _leftPadding + (handlerRadius/2) + (i * slotWidth),
+              0 + _leftPadding + handlerRadius+ (i * slotWidth),
               0 + _topPadding,
             ),
           );
@@ -368,7 +368,7 @@ class RenderCustomRangeSlider extends RenderBox {
           availableHeaderTextPainter.paint(
             canvas,
             Offset(
-              0 + _leftPadding + (handlerRadius/2) + (i * slotWidth),
+              0 + _leftPadding + handlerRadius + (i * slotWidth),
               0 + _topPadding,
             ),
           );
@@ -381,7 +381,7 @@ class RenderCustomRangeSlider extends RenderBox {
       /// Draw Slots**/
       canvas.drawRect(
         Rect.fromLTWH(
-          0 + _leftPadding + (handlerRadius/2) + (i * slotWidth),
+          0 + _leftPadding + handlerRadius + (i * slotWidth),
           0 + _topPadding + _textHeight + headerPadding,
           slotWidth,
           slotHeight,
@@ -390,18 +390,18 @@ class RenderCustomRangeSlider extends RenderBox {
       );
 
       ///store slot coordinates
-      listOfSlots[i].left = 0 + _leftPadding + (handlerRadius/2) + (i * slotWidth);
+      listOfSlots[i].left = 0 + _leftPadding + handlerRadius + (i * slotWidth);
       listOfSlots[i].top = 0 + _topPadding + _textHeight + headerPadding;
 
       /// Draw Divider**/
       if (i != 0) {
         canvas.drawLine(
           Offset(
-            0 + _leftPadding + (handlerRadius/2) + (i * slotWidth),
+            0 + _leftPadding + handlerRadius + (i * slotWidth),
             0 + _topPadding + _textHeight + headerPadding,
           ),
           Offset(
-            0 + _leftPadding + (handlerRadius/2) + (i * slotWidth),
+            0 + _leftPadding + handlerRadius + (i * slotWidth),
             0 +
                 _topPadding +
                 _textHeight +
@@ -773,6 +773,6 @@ class RenderCustomRangeSlider extends RenderBox {
   }
 
   double _calculateLayoutWidth() {
-    return slotWidth * listOfSlots.length + _leftPadding + _rightPadding + handlerRadius;
+    return slotWidth * listOfSlots.length + _leftPadding + _rightPadding + (handlerRadius*2);
   }
 }
