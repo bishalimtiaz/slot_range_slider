@@ -175,9 +175,12 @@ class RenderCustomRangeSlider extends RenderBox {
     markNeedsLayout();
   }
 
+  final Function(List<Slot>) onSlotSelected;
+
   RenderCustomRangeSlider({
     required List<Slot> listOfSlots,
     required BuildContext buildContext,
+    required this.onSlotSelected,
     double? slotHeight,
     double? slotWidth,
     double? headerPadding,
@@ -432,6 +435,8 @@ class RenderCustomRangeSlider extends RenderBox {
           handler: _selectionHandler,
         );
       }
+
+      onSlotSelected(listOfSlots.getAllSelectedSlots());
     }
 
     ///Draw Window**/
@@ -591,6 +596,7 @@ class RenderCustomRangeSlider extends RenderBox {
             markNeedsPaint();
             markNeedsSemanticsUpdate();
             listOfSlots.resetSelection(left: _windowLeft, right: _windowRight);
+            onSlotSelected(listOfSlots.getAllSelectedSlots());
           }
         }
 
@@ -613,6 +619,7 @@ class RenderCustomRangeSlider extends RenderBox {
             markNeedsPaint();
             markNeedsSemanticsUpdate();
             listOfSlots.resetSelection(left: _windowLeft, right: _windowRight);
+            onSlotSelected(listOfSlots.getAllSelectedSlots());
           }
         }
 
@@ -636,6 +643,7 @@ class RenderCustomRangeSlider extends RenderBox {
             markNeedsPaint();
             markNeedsSemanticsUpdate();
             listOfSlots.resetSelection(left: _windowLeft, right: _windowRight);
+            onSlotSelected(listOfSlots.getAllSelectedSlots());
           }
 
         }
@@ -670,8 +678,10 @@ class RenderCustomRangeSlider extends RenderBox {
       markNeedsPaint();
       listOfSlots.getSelectionRange(
           index: slot.index, slotWidth: slotWidth, handler: _selectionHandler);
+      listOfSlots.resetSelection(left: _windowLeft, right: _windowRight);
+      onSlotSelected(listOfSlots.getAllSelectedSlots());
     }
-    listOfSlots.resetSelection(left: _windowLeft, right: _windowRight);
+
   }
 
   @override

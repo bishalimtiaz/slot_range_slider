@@ -60,4 +60,9 @@ extension SlotExtension on List<Slot> {
     }
     return rightRange;
   }
+
+  List<Slot> getAllSelectedSlots(){
+    return where((element) => element.isSelected)
+      .map((e) => e).toList();
+  }
 }

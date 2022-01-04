@@ -16,16 +16,19 @@ class SlotRangeSlider extends StatefulWidget {
   final double? slotHeight;
   final double? slotWidth;
   final double? headerPadding;
+  final Function(List<Slot>) onSlotSelected;
 
   SlotRangeSlider({
     Key? key,
     required this.startTime,
     required this.endTime,
+    required this.onSlotSelected,
     this.listOfBookedLots,
     this.timeSlot = WidgetValues.defaultTimeSlot,
     this.slotHeight,
     this.slotWidth,
     this.headerPadding,
+
   }) : super(key: key) {
     _listOfSlots = SlotGenerator(
             startTime: startTime,
@@ -48,10 +51,6 @@ class SlotRangeSlider extends StatefulWidget {
 class _SlotRangeSliderState extends State<SlotRangeSlider> {
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-    //print("height: $height, width: $width");
-
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: CustomRangeSlide(
@@ -59,6 +58,7 @@ class _SlotRangeSliderState extends State<SlotRangeSlider> {
         slotHeight: widget.slotHeight,
         slotWidth: widget.slotWidth,
         headerPadding: widget.headerPadding,
+        onSlotSelected: widget.onSlotSelected,
       ),
     );
   }

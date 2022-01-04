@@ -19,8 +19,10 @@ class CustomRangeSlide extends LeafRenderObjectWidget {
   final TextStyle? bookedHeaderTextStyle;
   final double? dividerThickness;
   final Color? windowColor;
+  final Function(List<Slot>) onSlotSelected;
   const CustomRangeSlide({
     required this.listOfSlots,
+    required this.onSlotSelected,
     this.slotHeight,
     this.slotWidth,
     this.headerPadding,
@@ -49,6 +51,7 @@ class CustomRangeSlide extends LeafRenderObjectWidget {
       dividerThickness: dividerThickness,
       windowColor: windowColor,
       buildContext: context,
+      onSlotSelected: onSlotSelected,
     );
   }
 
