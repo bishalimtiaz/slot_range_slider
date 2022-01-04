@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:slot_range_slider/slot_range_slider/custom_range_slider.dart';
 import 'package:slot_range_slider/slot_range_slider/utils/slot_generator.dart';
+import 'package:slot_range_slider/slot_range_slider/values/enums.dart';
 import 'package:slot_range_slider/slot_range_slider/values/widget_values.dart';
 
 import 'model/booked_slot.dart';
@@ -17,6 +18,8 @@ class SlotRangeSlider extends StatefulWidget {
   final double? slotWidth;
   final double? headerPadding;
   final Function(List<Slot>) onSlotSelected;
+  final SliderType sliderType;
+
 
   SlotRangeSlider({
     Key? key,
@@ -28,6 +31,7 @@ class SlotRangeSlider extends StatefulWidget {
     this.slotHeight,
     this.slotWidth,
     this.headerPadding,
+    this.sliderType = SliderType.OVERVIEW
 
   }) : super(key: key) {
     _listOfSlots = SlotGenerator(
@@ -59,6 +63,7 @@ class _SlotRangeSliderState extends State<SlotRangeSlider> {
         slotWidth: widget.slotWidth,
         headerPadding: widget.headerPadding,
         onSlotSelected: widget.onSlotSelected,
+        sliderType: widget.sliderType,
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:slot_range_slider/slot_range_slider/render_custom_range_slider.dart';
+import 'package:slot_range_slider/slot_range_slider/values/enums.dart';
 import 'package:slot_range_slider/slot_range_slider/values/text_styles.dart';
 import 'package:slot_range_slider/slot_range_slider/values/widget_values.dart';
 import 'package:slot_range_slider/slot_range_slider/values/widget_colors.dart';
@@ -20,6 +21,7 @@ class CustomRangeSlide extends LeafRenderObjectWidget {
   final double? dividerThickness;
   final Color? windowColor;
   final Function(List<Slot>) onSlotSelected;
+  final SliderType sliderType;
   const CustomRangeSlide({
     required this.listOfSlots,
     required this.onSlotSelected,
@@ -33,6 +35,7 @@ class CustomRangeSlide extends LeafRenderObjectWidget {
     this.bookedHeaderTextStyle,
     this.dividerThickness,
     this.windowColor,
+    required this.sliderType ,
     Key? key,
   }) : super(key: key);
 
@@ -52,6 +55,7 @@ class CustomRangeSlide extends LeafRenderObjectWidget {
       windowColor: windowColor,
       buildContext: context,
       onSlotSelected: onSlotSelected,
+      isSelectable: sliderType == SliderType.RANGE
     );
   }
 

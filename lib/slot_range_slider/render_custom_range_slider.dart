@@ -177,10 +177,19 @@ class RenderCustomRangeSlider extends RenderBox {
 
   final Function(List<Slot>) onSlotSelected;
 
+  bool _isSelectable;
+  bool get isSelectable => _isSelectable;
+  set isSelectable(bool value){
+    if(_isSelectable == value) return;
+    _isSelectable = value;
+    markNeedsPaint();
+  }
+
   RenderCustomRangeSlider({
     required List<Slot> listOfSlots,
     required BuildContext buildContext,
     required this.onSlotSelected,
+    required bool isSelectable,
     double? slotHeight,
     double? slotWidth,
     double? headerPadding,
@@ -221,7 +230,8 @@ class RenderCustomRangeSlider extends RenderBox {
             WidgetColors.defaultHandlerBackgroundColor,
         _rightHandlerBackgroundColor = rightHandlerBackgroundColor ??
             WidgetColors.defaultHandlerBackgroundColor,
-        _handlerRadius = handlerRadius ?? WidgetValues.defaultHandlerRadius {
+        _handlerRadius = handlerRadius ?? WidgetValues.defaultHandlerRadius,
+        _isSelectable = isSelectable{
     ///Constructor Body**/
 
     _initializeDragGestureListener();
@@ -420,7 +430,7 @@ class RenderCustomRangeSlider extends RenderBox {
     ///
     ///set window to first available slot**/
 
-    if (!_isWindowSet) {
+    if (!_isWindowSet && isSelectable) {
       Slot? slot = listOfSlots.firstWhereOrNull((element) => !element.isBooked);
       if (slot != null) {
         _windowTop = slot.top;
@@ -441,82 +451,84 @@ class RenderCustomRangeSlider extends RenderBox {
 
     ///Draw Window**/
 
-    canvas.drawRect(
-      Rect.fromLTRB(
-        _windowLeft,
-        _windowTop,
-        _windowRight,
-        _windowTop + slotHeight,
-      ),
-      windowPaint,
-    );
+    if(isSelectable){
+      canvas.drawRect(
+        Rect.fromLTRB(
+          _windowLeft,
+          _windowTop,
+          _windowRight,
+          _windowTop + slotHeight,
+        ),
+        windowPaint,
+      );
 
-    ///Draw Left Handler
+      ///Draw Left Handler
 
-    canvas.drawCircle(
-      Offset(
-        _windowLeft,
-        _windowTop + (slotHeight / 2),
-      ),
-      handlerRadius,
-      leftHandlerBackgroundPaint,
-    );
+      canvas.drawCircle(
+        Offset(
+          _windowLeft,
+          _windowTop + (slotHeight / 2),
+        ),
+        handlerRadius,
+        leftHandlerBackgroundPaint,
+      );
 
-    final leftHandlerTextSpan = TextSpan(
-      text: String.fromCharCode(
-        _leftHandlerIcon.codePoint,
-      ),
-      style: TextStyle(
-        fontSize: handlerRadius,
-        fontFamily: _leftHandlerIcon.fontFamily,
-        color: leftHandlerIconColor,
-      ),
-    );
+      final leftHandlerTextSpan = TextSpan(
+        text: String.fromCharCode(
+          _leftHandlerIcon.codePoint,
+        ),
+        style: TextStyle(
+          fontSize: handlerRadius,
+          fontFamily: _leftHandlerIcon.fontFamily,
+          color: leftHandlerIconColor,
+        ),
+      );
 
-    final leftHandlerTextPainter = TextPainter(
-        textDirection: TextDirection.ltr, text: leftHandlerTextSpan);
+      final leftHandlerTextPainter = TextPainter(
+          textDirection: TextDirection.ltr, text: leftHandlerTextSpan);
 
-    leftHandlerTextPainter.layout();
-    leftHandlerTextPainter.paint(
-      canvas,
-      Offset(
-        _windowLeft - (leftHandlerTextPainter.width / 2),
-        _windowTop + (slotHeight / 2) - (leftHandlerTextPainter.height / 2),
-      ),
-    );
+      leftHandlerTextPainter.layout();
+      leftHandlerTextPainter.paint(
+        canvas,
+        Offset(
+          _windowLeft - (leftHandlerTextPainter.width / 2),
+          _windowTop + (slotHeight / 2) - (leftHandlerTextPainter.height / 2),
+        ),
+      );
 
-    ///Draw Right Handler
+      ///Draw Right Handler
 
-    canvas.drawCircle(
-      Offset(
-        _windowRight,
-        _windowTop + (slotHeight / 2),
-      ),
-      handlerRadius,
-      rightHandlerBackgroundPaint,
-    );
+      canvas.drawCircle(
+        Offset(
+          _windowRight,
+          _windowTop + (slotHeight / 2),
+        ),
+        handlerRadius,
+        rightHandlerBackgroundPaint,
+      );
 
-    final rightHandlerTextSpan = TextSpan(
-      text: String.fromCharCode(
-        _rightHandlerIcon.codePoint,
-      ),
-      style: TextStyle(
-        fontSize: handlerRadius,
-        fontFamily: _rightHandlerIcon.fontFamily,
-        color: rightHandlerIconColor,
-      ),
-    );
+      final rightHandlerTextSpan = TextSpan(
+        text: String.fromCharCode(
+          _rightHandlerIcon.codePoint,
+        ),
+        style: TextStyle(
+          fontSize: handlerRadius,
+          fontFamily: _rightHandlerIcon.fontFamily,
+          color: rightHandlerIconColor,
+        ),
+      );
 
-    final rightHandlerTextPainter = TextPainter(
-        textDirection: TextDirection.ltr, text: rightHandlerTextSpan);
-    rightHandlerTextPainter.layout();
-    rightHandlerTextPainter.paint(
-      canvas,
-      Offset(
-        _windowRight - (leftHandlerTextPainter.width / 2),
-        _windowTop + (slotHeight / 2) - (leftHandlerTextPainter.height / 2),
-      ),
-    );
+      final rightHandlerTextPainter = TextPainter(
+          textDirection: TextDirection.ltr, text: rightHandlerTextSpan);
+      rightHandlerTextPainter.layout();
+      rightHandlerTextPainter.paint(
+        canvas,
+        Offset(
+          _windowRight - (leftHandlerTextPainter.width / 2),
+          _windowTop + (slotHeight / 2) - (leftHandlerTextPainter.height / 2),
+        ),
+      );
+    }
 
     canvas.restore();
   }
@@ -685,7 +697,7 @@ class RenderCustomRangeSlider extends RenderBox {
   }
 
   @override
-  bool hitTestSelf(Offset position) => true;
+  bool hitTestSelf(Offset position) => isSelectable;
 
   @override
   void handleEvent(PointerEvent event, BoxHitTestEntry entry) {
