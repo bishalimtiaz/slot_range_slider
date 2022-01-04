@@ -328,6 +328,7 @@ class RenderCustomRangeSlider extends RenderBox {
     ///Draw Items**/
 
     for (int i = 0; i < listOfSlots.length; i++) {
+
       ///Draw Header**/
       if (i % 2 == 0) {
         if (listOfSlots[i].isBooked) {
@@ -345,7 +346,7 @@ class RenderCustomRangeSlider extends RenderBox {
           bookedHeaderTextPainter.paint(
             canvas,
             Offset(
-              0 + _leftPadding + (i * slotWidth),
+              0 + _leftPadding + (handlerRadius/2) + (i * slotWidth),
               0 + _topPadding,
             ),
           );
@@ -367,7 +368,7 @@ class RenderCustomRangeSlider extends RenderBox {
           availableHeaderTextPainter.paint(
             canvas,
             Offset(
-              0 + _leftPadding + (i * slotWidth),
+              0 + _leftPadding + (handlerRadius/2) + (i * slotWidth),
               0 + _topPadding,
             ),
           );
@@ -380,7 +381,7 @@ class RenderCustomRangeSlider extends RenderBox {
       /// Draw Slots**/
       canvas.drawRect(
         Rect.fromLTWH(
-          0 + _leftPadding + (i * slotWidth),
+          0 + _leftPadding + (handlerRadius/2) + (i * slotWidth),
           0 + _topPadding + _textHeight + headerPadding,
           slotWidth,
           slotHeight,
@@ -389,18 +390,18 @@ class RenderCustomRangeSlider extends RenderBox {
       );
 
       ///store slot coordinates
-      listOfSlots[i].left = 0 + _leftPadding + (i * slotWidth);
+      listOfSlots[i].left = 0 + _leftPadding + (handlerRadius/2) + (i * slotWidth);
       listOfSlots[i].top = 0 + _topPadding + _textHeight + headerPadding;
 
       /// Draw Divider**/
       if (i != 0) {
         canvas.drawLine(
           Offset(
-            0 + _leftPadding + (i * slotWidth),
+            0 + _leftPadding + (handlerRadius/2) + (i * slotWidth),
             0 + _topPadding + _textHeight + headerPadding,
           ),
           Offset(
-            0 + _leftPadding + (i * slotWidth),
+            0 + _leftPadding + (handlerRadius/2) + (i * slotWidth),
             0 +
                 _topPadding +
                 _textHeight +
